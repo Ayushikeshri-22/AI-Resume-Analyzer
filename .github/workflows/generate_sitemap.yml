@@ -1,0 +1,29 @@
+name: Generate Sitemap
+
+on:
+  push:
+    branches:
+      - main  # Change to your repo's default branch if needed
+
+jobs:
+  generate-sitemap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Sitemap Generator
+        run: npm install -g sitemap-generator-cli
+
+      - name: Generate Sitemap
+        run: |
+          sitemap-generator-cli https://yourwebsite.com --output sitemap.xml
+
+      - name: Commit and Push Sitemap
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions@github.com"
+          git add sitemap.xml
+          git commit -m "Auto-generate sitemap"
+          git push
