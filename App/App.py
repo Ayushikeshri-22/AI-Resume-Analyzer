@@ -124,6 +124,14 @@ st.set_page_config(
    page_icon='./Logo/recommend.png',
 )
 
+# Inject Google Search Console meta tag
+st.markdown(
+    """
+    <meta name="google-site-verification" content="WQl19U2RSt8Zii-LIO1xxBQRG6A3XIhoZcAD6zRam1o" />
+    """,
+    unsafe_allow_html=True
+)
+
 
 ###### Main function run() ######
 
