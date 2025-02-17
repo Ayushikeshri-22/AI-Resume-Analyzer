@@ -3,7 +3,7 @@ name: Generate Sitemap
 on:
   push:
     branches:
-      - main  # Change to your repo's default branch if needed
+      - main  # Change to your default branch if needed
 
 jobs:
   generate-sitemap:
@@ -14,16 +14,18 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Sitemap Generator
-        run: npm install -g sitemap-generator-cli
+        run: |
+          npm install -g sitemap-generator-cli
+          echo "export PATH=$(npm root -g)/.bin:$PATH" >> $GITHUB_ENV
 
       - name: Generate Sitemap
         run: |
-          sitemap-generator-cli https://ayushikeshri-22.github.io/AI-Resume-Analyzer/ --output sitemap.xml
+          npx sitemap-generator-cli https://ayushikeshri-22.github.io/AI-Resume-Analyzer/ --output sitemap.xml
 
       - name: Commit and Push Sitemap
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions@github.com"
           git add sitemap.xml
-          git commit -m "Auto-generate sitemap"
+          git commit -m "Auto-generate sitemap" || echo "No changes to commit"
           git push
