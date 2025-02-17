@@ -3,6 +3,7 @@
 
 ###### Packages Used ######
 import streamlit as st # core package used in this project
+import streamlit.components.v1 as components
 import pandas as pd
 import base64, random
 import time,datetime
@@ -124,14 +125,14 @@ st.set_page_config(
    page_icon='./Logo/recommend.png',
 )
 
-# Inject Google Search Console meta tag
-st.markdown(
-    """
-    <meta name="google-site-verification" content="WQl19U2RSt8Zii-LIO1xxBQRG6A3XIhoZcAD6zRam1o" />
-    """,
-    unsafe_allow_html=True
-)
+# Load and display the HTML file to inject meta tags
+with open("index.html", "r") as file:
+    html_content = file.read()
 
+components.html(html_content, height=100)
+
+st.title("Welcome to AI Resume Analyzer By Ayushi")
+st.write("Analyze your resume with AI insights!")
 
 ###### Main function run() ######
 
